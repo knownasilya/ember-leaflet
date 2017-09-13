@@ -50,13 +50,15 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
       return;
     }
 
-    this._layer = this.createLayer();
-    this._addObservers();
-    this._addEventListeners();
-    if (this.get('parentComponent')) {
-      this.addToContainer();
-    }
-    this.didCreateLayer();
+    run.scheduleOnce('afterRender', () => {
+      this._layer = this.createLayer();
+      this._addObservers();
+      this._addEventListeners();
+      if (this.get('parentComponent')) {
+        this.addToContainer();
+      }
+      this.didCreateLayer();
+    });
   },
 
   /*
